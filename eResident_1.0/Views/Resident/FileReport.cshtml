@@ -1,0 +1,138 @@
+﻿@model eResident_1._0.Models.REPORT
+
+@{
+    ViewBag.Title = "FileReport";
+    Layout = "~/Views/Shared/_LayoutResident.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>File Report</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Scripts/BookService/css/main.css">
+    <!--===============================================================================================-->
+    <style>
+        select:invalid {
+            color: gray;
+        }
+
+        .label-input100 {
+            font-weight: bolder;
+        }
+
+        .title {
+            margin-top: -60px;
+            margin-left: auto;
+            margin-right: auto;
+            /*margin: auto;*/
+            width: 30%;
+            padding: 20px;
+            font-size: 20pt;
+            font-weight: bolder;
+            text-transform: none;
+        }
+
+        .container-contact100 {
+            min-height: 0vh;
+            padding: 0;
+        }
+
+        input[type="date"] {
+            -webkit-appearance: none;
+        }
+
+        a.my-class {
+            color: white
+        }
+
+            a.my-class:hover {
+                color: black
+            }
+    </style>
+
+
+    @if (TempData["Success"] is true)
+    {
+        <script type="text/javascript">
+            $(function () {
+                alert("Successfully Reported");
+            });
+        </script>
+
+        TempData["Success"] = false;
+    }
+    else if (TempData["Success"] is false)
+    {
+        if (TempData["ErrorMessage"] != null)
+        {
+            <script type="text/javascript">
+                $(function () {
+                    alert(TempData["ErrorMessage"]);
+                });
+            </script>
+        }
+    }
+</head>
+<body>
+
+    <span class="contact100-form-title title">
+        Report Form
+    </span>
+    <div class="container-contact100" style="margin-top:0;">
+        <div class="wrap-contact100">
+            @using (Html.BeginForm("VerifyReport", "Resident", FormMethod.Post, new { enctype = "multipart/form-data", @class = "contact100-form", onsubmit = "return confirm('Confirm report?');" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="wrap-input100">
+                    <br />
+                    <span class="label-input100">Report Type</span>
+                    <br />
+                    <select name="REPORT_TYPE" required class="fcolor">
+                        <option value="" disabled selected>Please select ...</option>
+                        <option value="FACILITY" style="color:black;">Facility</option>
+                        <option value="ROAD" style="color:black;">Road</option>
+                        <option value="STAFF" style="color:black;">Staff</option>
+                        <option value="OTHERS" style="color:black;">Others</option>
+
+                    </select>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Message is required">
+                    <br />
+                    <span class="label-input100">Description</span>
+                    <textarea class="input100" name="REPORT_DESC" placeholder="Please state your complain here ..." required></textarea>
+                </div>
+
+                <div class="container-contact100-form-btn">
+                    <div class="wrap-contact100-form-btn">
+                        <div class="contact100-form-bgbtn"></div>
+                        <input type="submit" class="contact100-form-btn" style="background:#e6f2ff;color:#000000;font-weight:bold;" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+    @*<div id="dropDownSelect1"></div>*@
+
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/vendor/bootstrap/js/popper.js"></script>
+    <!--if script ni uncomment, menu top right xleh bukak-->
+    @*<script src="~/CSS_Layout/vendor/bootstrap/js/bootstrap.min.js"></script>*@
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/js/main.js"></script>
+</body>
+</html>
+
+
+

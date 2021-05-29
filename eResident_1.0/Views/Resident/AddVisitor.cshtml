@@ -1,0 +1,60 @@
+﻿@model eResident_1._0.Models.VISITOR
+
+@{
+    ViewBag.Title = "AddVisitor";
+    Layout = "~/Views/Shared/_LayoutResident.cshtml";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditFacility</title>
+    <link href="~/Scripts/CSS/AddVisitorCSS.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+    <div class="container">
+        <div id="editfacility">
+            <h3>Add Visitor</h3>
+            @using (Html.BeginForm("AddVisitor", "Resident", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                @Html.AntiForgeryToken()
+
+                <fieldset>
+                    Visitor IC :
+                    @Html.EditorFor(model => model.VISITOR_IC, new { htmlAttributes = new { @class = "form-control" } })
+                    @*<input name="VISITOR_IC" type="text" class="form-control" tabindex="1" required autofocus>*@
+                    @*@Html.EditorFor(model => model.VISITOR_IC, new { htmlAttributes = new { @class = "form-control" } })*@
+                </fieldset>
+                <fieldset>
+                    Visitor Name :
+                    @*<input name="VISITOR_NAME" type="text" value="@Model.VISITOR_NAME" tabindex="1" required autofocus>*@
+                    @Html.EditorFor(model => model.VISITOR_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                </fieldset>
+                <fieldset>
+                    Phone Number :
+                    @*<input name="VISITOR_NAME" type="text" value="@Model.VISITOR_NAME" tabindex="1" required autofocus>*@
+                    @Html.EditorFor(model => model.VISITOR_PHONE, new { htmlAttributes = new { @class = "form-control" } })
+                </fieldset>
+                <fieldset>
+                    Date Visit :
+                    @*<input name="VISITOR_NAME" type="text" value="@Model.VISITOR_NAME" tabindex="1" required autofocus>*@
+                    <input name="ARRIVAL_DATE" class="form-control" type="date">
+                </fieldset>
+                <fieldset>
+                    <button style="width: 100%;" name="submit" type="submit">Add</button>
+                </fieldset>
+            }
+            @* <p class="copyright">Designed by <a href="https://colorlib.com" target="_blank" title="Colorlib">Colorlib</a></p>*@
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<eResident_1._0.Models.View_ResidentBookingList>
+@{
+    ViewBag.Title = "ViewBookingList";
+    Layout = "~/Views/Shared/_LayoutResident.cshtml";
+}
+
+<html>
+<head>
+
+    <style>
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+        }
+        th,td{
+            padding:15px;
+        }
+        .title {
+            margin-top: -50px;
+            margin-left: 40%;
+            font-size: 20pt;
+            font-weight: bolder;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Booking List</div>
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+    <br />
+    <br />
+    <table class="center">
+        <tr>
+            <th>
+                REQUESTED ON
+            </th>
+            <th>
+                SERVICE
+            </th>
+            <th>
+                DATE
+            </th>
+            <th>
+                TIME
+            </th>
+            <th style="text-align:center;">
+                STATUS
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.REQ_ON)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SERVICE_NAME)
+                </td>
+                <td>                    
+                    @item.BOOKING_DATE.ToShortDateString()
+                    @*@Html.DisplayFor(modelItem => item.BOOKING_DATE.ToLongDateString())*@
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.BOOKING_TIME)
+                </td>
+                @if (item.STATUS.Equals("COMPLETED"))
+                {
+                    <td style="background-color:lightgreen; text-align:center;">
+
+                        @Html.DisplayFor(modelItem => item.STATUS)
+                    </td>
+                }
+                else if (item.STATUS.Equals("PENDING"))
+                {
+                    <td style="background-color:yellow; text-align:center;">
+                        @Html.DisplayFor(modelItem => item.STATUS)
+                    </td>
+                }
+                else if (item.STATUS.Equals("REVIEWED"))
+                {
+                    <td style="background-color:blue; text-align:center;">
+                        @Html.DisplayFor(modelItem => item.STATUS)
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>
+
+
+
+
+</body>
+</html>
+

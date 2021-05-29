@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutResident.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Resident Menu</title>
+    <style>
+
+        .container-button {
+            height: 100px;
+            position: relative;
+        }
+
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .button {
+            color: #FFFFFF;
+            background-color: #7C3F7C;
+            border-color: #7C3F7C;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            transition-duration: 0.35s;
+            cursor: pointer;
+            width: 320px;
+        }
+
+            .button:hover {
+                color: inherit;
+                background-color: transparent;
+                border-color: inherit;
+                border: 2px solid;
+            }
+    </style>
+</head>
+<body>
+    <div class="container-button">
+        <div class="center">
+            @*<input type="button" class="button" value="Announcement">*@
+            <a href="@Url.Action("FacilityList", "Resident")" class="button">VIEW FACILITY</a>
+        </div>
+    </div>
+
+    <div class="container-button">
+        <div class="center">
+            <a href="@Url.Action("BookService", "Resident")" class="button">BOOK SERVICE</a>
+            @*<input type="button" class="button" value="Visitor">*@
+        </div>
+    </div>
+
+    <div class="container-button">
+        <div class="center">
+            <a href="@Url.Action("FileReport", "Resident")" class="button">FILE REPORT</a>
+        </div>
+    </div>
+    <div class="container-button">
+        <div class="center">
+            <a href="@Url.Action("ViewVisitor", "Resident")" class="button">VIEW VISITOR</a>
+        </div>
+    </div>
+</body>
+</html>
+
+

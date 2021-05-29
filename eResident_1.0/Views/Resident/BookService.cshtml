@@ -1,0 +1,180 @@
+﻿@model IEnumerable<eResident_1._0.Models.SERVICE>
+@{
+    ViewBag.Title = "BookService";
+    Layout = "~/Views/Shared/_LayoutResident.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book Service</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Scripts/BookService/css/main.css">
+    <!--===============================================================================================-->
+    <style>
+        select:invalid {
+            color: gray;
+        }
+
+        .label-input100 {
+            font-weight: bolder;
+        }
+
+        .title {
+            margin-top: -60px;
+            margin-left: auto;
+            margin-right: auto;
+            /*margin: auto;*/
+            width: 30%;
+            padding: 20px;
+            font-size: 20pt;
+            font-weight: bolder;
+            text-transform: none;
+        }
+
+        .container-contact100 {
+            min-height: 0vh;
+            padding: 0;
+        }
+
+        input[type="date"] {
+            -webkit-appearance: none;
+        }
+
+        a.my-class {
+            color: white
+        }
+
+            a.my-class:hover {
+                color: black
+            }
+    </style>
+
+    @if (TempData["Success"] is true)
+    {
+        <script type="text/javascript">
+            $(function () {
+                alert("Booked Successfully.");
+            });
+        </script>
+
+        TempData["Success"] = false;
+    }
+    else if (TempData["Success"] is false)
+    {
+        if (TempData["ErrorMessage"] != null)
+        {
+            <script type="text/javascript">
+                $(function () {
+                    alert("ERROR! : " + TempData["ErrorMessage"]);
+                });
+            </script>
+        }
+    }
+</head>
+<body>
+
+    <span class="contact100-form-title title">
+        Service Booking Form
+    </span>
+    <div class="container-contact100" style="margin-top:0;">
+        <div class="wrap-contact100">
+            @using (Html.BeginForm("VerifyBooking", "Resident", FormMethod.Post, new { enctype = "multipart/form-data", @class = "contact100-form", onsubmit = "return confirm('Confirm booking?');" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Required">
+                    <span class="label-input100">Date</span>
+                    <input class="input100" id="datebook" onkeydown="return false" type="date" name="BOOKING_DATE" required>
+                </div>
+
+                <div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Required">
+                    <span class="label-input100">Time</span>
+                    <input class="input100" id="timebook" onblur="compare();" onkeydown="return false" type="time" min="08:00" max="17:00" name="BOOKING_TIME" required>
+                </div>
+
+                <div class="wrap-input100">
+                    <br />
+                    <span class="label-input100">Service</span>
+                    <br />
+                    <select name="SERVICE_ID" required class="fcolor">                        
+                        <option value="" disabled selected>Please select ...</option>
+                        <option value="1" style="color:black;">Cleaner</option>
+                        <option value="2" style="color:black;">Plumber</option>
+                        <option value="3" style="color:black;">Wiring</option>
+                        <option value="4" style="color:black;">Heater</option>
+                        <option value="5" style="color:black;">Moving</option>
+                        <option value="7" style="color:black;">Others</option>
+
+                    </select>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Message is required">
+                    <br />
+                    <span class="label-input100">Description</span>
+                    <textarea class="input100" name="BOOKING_DESC" placeholder="Please state your reason here ..." required></textarea>
+                </div>
+
+                <div class="container-contact100-form-btn">
+                    <div class="wrap-contact100-form-btn">
+                        <div class="contact100-form-bgbtn"></div>
+                        <input type="submit" class="contact100-form-btn" style="background:#e6f2ff;color:#000000;font-weight:bold;" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+    @*<div id="dropDownSelect1"></div>*@
+
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/vendor/bootstrap/js/popper.js"></script>
+    <!--if script ni uncomment, menu top right xleh bukak-->
+    @*<script src="~/CSS_Layout/vendor/bootstrap/js/bootstrap.min.js"></script>*@
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Scripts/BookService/js/main.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+
+        var today = new Date();
+        var dd = today.getDate() + 1;
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('datebook').setAttribute("min", today);
+
+        function compare() {
+            var time = document.getElementById("timebook").value;
+
+            if (new Date(time).getTime() > "18:00" && new Date(time).getTime() < "08:00") {
+                alert("Office hours are 8am to 5pm");
+                document.getElementById('timebook').setAttribute("value", null);
+            }
+            document.getElementById('timebook').setAttribute("value", null);
+        }
+    </script>
+</body>
+</html>
+

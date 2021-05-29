@@ -1,0 +1,893 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="eResidentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BOOKING">
+          <Key>
+            <PropertyRef Name="BOOKING_ID" />
+          </Key>
+          <Property Name="BOOKING_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BOOKING_DATE" Type="datetime" Nullable="false" />
+          <Property Name="BOOKING_TIME" Type="time" Precision="7" />
+          <Property Name="REQ_ON" Type="datetime" Nullable="false" />
+          <Property Name="STATUS" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BOOKING_DESC" Type="varchar(max)" />
+          <Property Name="BOOKING_FEEDBACK" Type="varchar(max)" />
+          <Property Name="RESIDENT_IC" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SERVICE_ID" Type="int" Nullable="false" />
+          <Property Name="STAFF_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="FACILITY">
+          <Key>
+            <PropertyRef Name="FACILITY_ID" />
+          </Key>
+          <Property Name="FACILITY_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FACILITY_NAME" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="FACILITY_DESCRIPTION" Type="varchar(max)" Nullable="false" />
+          <Property Name="FACILITY_MEDIA" Type="varbinary(max)" Nullable="false" />
+          <Property Name="STAFF_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HOUSE">
+          <Key>
+            <PropertyRef Name="HOUSE_ID" />
+          </Key>
+          <Property Name="HOUSE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HOUSE_BLOCK" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="HOUSE_LEVEL" Type="int" Nullable="false" />
+          <Property Name="HOUSE_NUMBER" Type="int" Nullable="false" />
+          <Property Name="VACANCY" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HOUSE_RENT">
+          <Key>
+            <PropertyRef Name="RENT_NO" />
+          </Key>
+          <Property Name="RENT_NO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="START_RENT" Type="datetime" Nullable="false" />
+          <Property Name="END_RENT" Type="datetime" />
+          <Property Name="STATUS" Type="bit" Nullable="false" />
+          <Property Name="RESIDENT_IC" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="HOUSE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REPORT">
+          <Key>
+            <PropertyRef Name="REPORT_ID" />
+          </Key>
+          <Property Name="REPORT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REPORT_DATE" Type="datetime" Nullable="false" />
+          <Property Name="STATUS" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="REPORT_DESC" Type="varchar(max)" />
+          <Property Name="REPORT_TYPE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RESIDENT_IC" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="STAFF_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="RESIDENT">
+          <Key>
+            <PropertyRef Name="RESIDENT_IC" />
+          </Key>
+          <Property Name="RESIDENT_IC" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RESIDENT_NAME" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="RESIDENT_PHONE" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="RESIDENT_EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ROLE_ID" />
+          </Key>
+          <Property Name="ROLE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ROLE_NAME" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SERVICE">
+          <Key>
+            <PropertyRef Name="SERVICE_ID" />
+          </Key>
+          <Property Name="SERVICE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SERVICE_NAME" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STAFF">
+          <Key>
+            <PropertyRef Name="STAFF_ID" />
+          </Key>
+          <Property Name="STAFF_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="STAFF_IC" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="STAFF_NAME" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="STAFF_PHONE" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="STAFF_EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="STATUS" Type="bit" Nullable="false" />
+          <Property Name="ROLE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VISITOR">
+          <Key>
+            <PropertyRef Name="VISITOR_ID" />
+          </Key>
+          <Property Name="VISITOR_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VISITOR_IC" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="VISITOR_NAME" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="VISITOR_PHONE" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ARRIVAL_DATE" Type="datetime" Nullable="false" />
+          <Property Name="RESIDENT_IC" Type="varchar" MaxLength="20" />
+          <Property Name="STAFF_ID" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'E-RESIDENT.dbo.View_ResidentBookingList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_ResidentBookingList">
+          <Key>
+            <PropertyRef Name="BOOKING_ID" />
+            <PropertyRef Name="BOOKING_DATE" />
+            <PropertyRef Name="REQ_ON" />
+            <PropertyRef Name="STATUS" />
+            <PropertyRef Name="RESIDENT_IC" />
+            <PropertyRef Name="SERVICE_ID" />
+            <PropertyRef Name="SERVICE_NAME" />
+          </Key>
+          <Property Name="BOOKING_ID" Type="int" Nullable="false" />
+          <Property Name="BOOKING_DATE" Type="date" Nullable="false" />
+          <Property Name="BOOKING_TIME" Type="varchar" MaxLength="15" />
+          <Property Name="REQ_ON" Type="datetime" Nullable="false" />
+          <Property Name="STATUS" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RESIDENT_IC" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SERVICE_ID" Type="int" Nullable="false" />
+          <Property Name="SERVICE_NAME" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BOOKING_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="1" />
+          <End Role="BOOKING" Type="Self.BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOOKING_SERVICE">
+          <End Role="SERVICE" Type="Self.SERVICE" Multiplicity="1" />
+          <End Role="BOOKING" Type="Self.BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERVICE">
+              <PropertyRef Name="SERVICE_ID" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="SERVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOOKING_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="0..1" />
+          <End Role="BOOKING" Type="Self.BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACILITY_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="1" />
+          <End Role="FACILITY" Type="Self.FACILITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="FACILITY">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOUSE_RENT_HOUSE">
+          <End Role="HOUSE" Type="Self.HOUSE" Multiplicity="1" />
+          <End Role="HOUSE_RENT" Type="Self.HOUSE_RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOUSE">
+              <PropertyRef Name="HOUSE_ID" />
+            </Principal>
+            <Dependent Role="HOUSE_RENT">
+              <PropertyRef Name="HOUSE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOUSE_RENT_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="1" />
+          <End Role="HOUSE_RENT" Type="Self.HOUSE_RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="HOUSE_RENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REPORT_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="1" />
+          <End Role="REPORT" Type="Self.REPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="REPORT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REPORT_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="0..1" />
+          <End Role="REPORT" Type="Self.REPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="REPORT">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAFF_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROLE_ID" />
+            </Principal>
+            <Dependent Role="STAFF">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITOR_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="0..1" />
+          <End Role="VISITOR" Type="Self.VISITOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="VISITOR">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITOR_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="0..1" />
+          <End Role="VISITOR" Type="Self.VISITOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="VISITOR">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="PROC_InsertBooking" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BOOKING_DATE" Type="date" Mode="In" />
+          <Parameter Name="BOOKING_TIME" Type="time" Mode="In" />
+          <Parameter Name="BOOKING_DESC" Type="varchar(max)" Mode="In" />
+          <Parameter Name="RESIDENT_IC" Type="varchar" Mode="In" />
+          <Parameter Name="SERVICE_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PROC_InsertReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="REPORT_DESC" Type="varchar(max)" Mode="In" />
+          <Parameter Name="REPORT_TYPE" Type="varchar" Mode="In" />
+          <Parameter Name="RESIDENT_IC" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Proc_ResidentBookingList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RESIDENT_IC" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="eResidentModelStoreContainer">
+          <EntitySet Name="BOOKING" EntityType="Self.BOOKING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FACILITY" EntityType="Self.FACILITY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOUSE" EntityType="Self.HOUSE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOUSE_RENT" EntityType="Self.HOUSE_RENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REPORT" EntityType="Self.REPORT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESIDENT" EntityType="Self.RESIDENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SERVICE" EntityType="Self.SERVICE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STAFF" EntityType="Self.STAFF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VISITOR" EntityType="Self.VISITOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_ResidentBookingList" EntityType="Self.View_ResidentBookingList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_ResidentBookingList].[BOOKING_ID] AS [BOOKING_ID], 
+    [View_ResidentBookingList].[BOOKING_DATE] AS [BOOKING_DATE], 
+    [View_ResidentBookingList].[BOOKING_TIME] AS [BOOKING_TIME], 
+    [View_ResidentBookingList].[REQ_ON] AS [REQ_ON], 
+    [View_ResidentBookingList].[STATUS] AS [STATUS], 
+    [View_ResidentBookingList].[RESIDENT_IC] AS [RESIDENT_IC], 
+    [View_ResidentBookingList].[SERVICE_ID] AS [SERVICE_ID], 
+    [View_ResidentBookingList].[SERVICE_NAME] AS [SERVICE_NAME]
+    FROM [dbo].[View_ResidentBookingList] AS [View_ResidentBookingList]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BOOKING_RESIDENT" Association="Self.FK_BOOKING_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENT" />
+            <End Role="BOOKING" EntitySet="BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOKING_SERVICE" Association="Self.FK_BOOKING_SERVICE">
+            <End Role="SERVICE" EntitySet="SERVICE" />
+            <End Role="BOOKING" EntitySet="BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOKING_STAFF" Association="Self.FK_BOOKING_STAFF">
+            <End Role="STAFF" EntitySet="STAFF" />
+            <End Role="BOOKING" EntitySet="BOOKING" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACILITY_STAFF" Association="Self.FK_FACILITY_STAFF">
+            <End Role="STAFF" EntitySet="STAFF" />
+            <End Role="FACILITY" EntitySet="FACILITY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOUSE_RENT_HOUSE" Association="Self.FK_HOUSE_RENT_HOUSE">
+            <End Role="HOUSE" EntitySet="HOUSE" />
+            <End Role="HOUSE_RENT" EntitySet="HOUSE_RENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOUSE_RENT_RESIDENT" Association="Self.FK_HOUSE_RENT_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENT" />
+            <End Role="HOUSE_RENT" EntitySet="HOUSE_RENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REPORT_RESIDENT" Association="Self.FK_REPORT_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENT" />
+            <End Role="REPORT" EntitySet="REPORT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REPORT_STAFF" Association="Self.FK_REPORT_STAFF">
+            <End Role="STAFF" EntitySet="STAFF" />
+            <End Role="REPORT" EntitySet="REPORT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAFF_ROLE" Association="Self.FK_STAFF_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="STAFF" EntitySet="STAFF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITOR_RESIDENT" Association="Self.FK_VISITOR_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENT" />
+            <End Role="VISITOR" EntitySet="VISITOR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITOR_STAFF" Association="Self.FK_VISITOR_STAFF">
+            <End Role="STAFF" EntitySet="STAFF" />
+            <End Role="VISITOR" EntitySet="VISITOR" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="eResidentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BOOKING">
+          <Key>
+            <PropertyRef Name="BOOKING_ID" />
+          </Key>
+          <Property Name="BOOKING_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BOOKING_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BOOKING_TIME" Type="Time" Precision="7" />
+          <Property Name="REQ_ON" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BOOKING_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BOOKING_FEEDBACK" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RESIDENT_IC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SERVICE_ID" Type="Int32" Nullable="false" />
+          <Property Name="STAFF_ID" Type="Int32" />
+          <NavigationProperty Name="RESIDENT" Relationship="Self.FK_BOOKING_RESIDENT" FromRole="BOOKING" ToRole="RESIDENT" />
+          <NavigationProperty Name="SERVICE" Relationship="Self.FK_BOOKING_SERVICE" FromRole="BOOKING" ToRole="SERVICE" />
+          <NavigationProperty Name="STAFF" Relationship="Self.FK_BOOKING_STAFF" FromRole="BOOKING" ToRole="STAFF" />
+        </EntityType>
+        <EntityType Name="FACILITY">
+          <Key>
+            <PropertyRef Name="FACILITY_ID" />
+          </Key>
+          <Property Name="FACILITY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FACILITY_NAME" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FACILITY_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FACILITY_MEDIA" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="STAFF_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="STAFF" Relationship="Self.FK_FACILITY_STAFF" FromRole="FACILITY" ToRole="STAFF" />
+        </EntityType>
+        <EntityType Name="HOUSE">
+          <Key>
+            <PropertyRef Name="HOUSE_ID" />
+          </Key>
+          <Property Name="HOUSE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HOUSE_BLOCK" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="HOUSE_LEVEL" Type="Int32" Nullable="false" />
+          <Property Name="HOUSE_NUMBER" Type="Int32" Nullable="false" />
+          <Property Name="VACANCY" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="HOUSE_RENT" Relationship="Self.FK_HOUSE_RENT_HOUSE" FromRole="HOUSE" ToRole="HOUSE_RENT" />
+        </EntityType>
+        <EntityType Name="HOUSE_RENT">
+          <Key>
+            <PropertyRef Name="RENT_NO" />
+          </Key>
+          <Property Name="RENT_NO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="START_RENT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="END_RENT" Type="DateTime" Precision="3" />
+          <Property Name="STATUS" Type="Boolean" Nullable="false" />
+          <Property Name="RESIDENT_IC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HOUSE_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HOUSE" Relationship="Self.FK_HOUSE_RENT_HOUSE" FromRole="HOUSE_RENT" ToRole="HOUSE" />
+          <NavigationProperty Name="RESIDENT" Relationship="Self.FK_HOUSE_RENT_RESIDENT" FromRole="HOUSE_RENT" ToRole="RESIDENT" />
+        </EntityType>
+        <EntityType Name="REPORT">
+          <Key>
+            <PropertyRef Name="REPORT_ID" />
+          </Key>
+          <Property Name="REPORT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="REPORT_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="REPORT_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="REPORT_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RESIDENT_IC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STAFF_ID" Type="Int32" />
+          <NavigationProperty Name="RESIDENT" Relationship="Self.FK_REPORT_RESIDENT" FromRole="REPORT" ToRole="RESIDENT" />
+          <NavigationProperty Name="STAFF" Relationship="Self.FK_REPORT_STAFF" FromRole="REPORT" ToRole="STAFF" />
+        </EntityType>
+        <EntityType Name="RESIDENT">
+          <Key>
+            <PropertyRef Name="RESIDENT_IC" />
+          </Key>
+          <Property Name="RESIDENT_IC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RESIDENT_NAME" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RESIDENT_PHONE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RESIDENT_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BOOKINGs" Relationship="Self.FK_BOOKING_RESIDENT" FromRole="RESIDENT" ToRole="BOOKING" />
+          <NavigationProperty Name="HOUSE_RENT" Relationship="Self.FK_HOUSE_RENT_RESIDENT" FromRole="RESIDENT" ToRole="HOUSE_RENT" />
+          <NavigationProperty Name="REPORTs" Relationship="Self.FK_REPORT_RESIDENT" FromRole="RESIDENT" ToRole="REPORT" />
+          <NavigationProperty Name="VISITORs" Relationship="Self.FK_VISITOR_RESIDENT" FromRole="RESIDENT" ToRole="VISITOR" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ROLE_ID" />
+          </Key>
+          <Property Name="ROLE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ROLE_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="STAFFs" Relationship="Self.FK_STAFF_ROLE" FromRole="ROLE" ToRole="STAFF" />
+        </EntityType>
+        <EntityType Name="SERVICE">
+          <Key>
+            <PropertyRef Name="SERVICE_ID" />
+          </Key>
+          <Property Name="SERVICE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SERVICE_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BOOKINGs" Relationship="Self.FK_BOOKING_SERVICE" FromRole="SERVICE" ToRole="BOOKING" />
+        </EntityType>
+        <EntityType Name="STAFF">
+          <Key>
+            <PropertyRef Name="STAFF_ID" />
+          </Key>
+          <Property Name="STAFF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STAFF_IC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STAFF_NAME" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STAFF_PHONE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STAFF_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STATUS" Type="Boolean" Nullable="false" />
+          <Property Name="ROLE_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BOOKINGs" Relationship="Self.FK_BOOKING_STAFF" FromRole="STAFF" ToRole="BOOKING" />
+          <NavigationProperty Name="FACILITies" Relationship="Self.FK_FACILITY_STAFF" FromRole="STAFF" ToRole="FACILITY" />
+          <NavigationProperty Name="REPORTs" Relationship="Self.FK_REPORT_STAFF" FromRole="STAFF" ToRole="REPORT" />
+          <NavigationProperty Name="ROLE" Relationship="Self.FK_STAFF_ROLE" FromRole="STAFF" ToRole="ROLE" />
+          <NavigationProperty Name="VISITORs" Relationship="Self.FK_VISITOR_STAFF" FromRole="STAFF" ToRole="VISITOR" />
+        </EntityType>
+        <EntityType Name="VISITOR">
+          <Key>
+            <PropertyRef Name="VISITOR_ID" />
+          </Key>
+          <Property Name="VISITOR_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VISITOR_IC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VISITOR_NAME" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ARRIVAL_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RESIDENT_IC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STAFF_ID" Type="Int32" />
+          <NavigationProperty Name="RESIDENT" Relationship="Self.FK_VISITOR_RESIDENT" FromRole="VISITOR" ToRole="RESIDENT" />
+          <NavigationProperty Name="STAFF" Relationship="Self.FK_VISITOR_STAFF" FromRole="VISITOR" ToRole="STAFF" />
+          <Property Name="VISITOR_PHONE" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_BOOKING_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="1" />
+          <End Role="BOOKING" Type="Self.BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOOKING_SERVICE">
+          <End Role="SERVICE" Type="Self.SERVICE" Multiplicity="1" />
+          <End Role="BOOKING" Type="Self.BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERVICE">
+              <PropertyRef Name="SERVICE_ID" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="SERVICE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOOKING_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="0..1" />
+          <End Role="BOOKING" Type="Self.BOOKING" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="BOOKING">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACILITY_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="1" />
+          <End Role="FACILITY" Type="Self.FACILITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="FACILITY">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOUSE_RENT_HOUSE">
+          <End Role="HOUSE" Type="Self.HOUSE" Multiplicity="1" />
+          <End Role="HOUSE_RENT" Type="Self.HOUSE_RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOUSE">
+              <PropertyRef Name="HOUSE_ID" />
+            </Principal>
+            <Dependent Role="HOUSE_RENT">
+              <PropertyRef Name="HOUSE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HOUSE_RENT_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="1" />
+          <End Role="HOUSE_RENT" Type="Self.HOUSE_RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="HOUSE_RENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REPORT_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="1" />
+          <End Role="REPORT" Type="Self.REPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="REPORT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REPORT_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="0..1" />
+          <End Role="REPORT" Type="Self.REPORT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="REPORT">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITOR_RESIDENT">
+          <End Role="RESIDENT" Type="Self.RESIDENT" Multiplicity="0..1" />
+          <End Role="VISITOR" Type="Self.VISITOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESIDENT">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Principal>
+            <Dependent Role="VISITOR">
+              <PropertyRef Name="RESIDENT_IC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAFF_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ROLE_ID" />
+            </Principal>
+            <Dependent Role="STAFF">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VISITOR_STAFF">
+          <End Role="STAFF" Type="Self.STAFF" Multiplicity="0..1" />
+          <End Role="VISITOR" Type="Self.VISITOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STAFF">
+              <PropertyRef Name="STAFF_ID" />
+            </Principal>
+            <Dependent Role="VISITOR">
+              <PropertyRef Name="STAFF_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="eResidentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BOOKINGs" EntityType="Self.BOOKING" />
+          <EntitySet Name="FACILITies" EntityType="Self.FACILITY" />
+          <EntitySet Name="Houses" EntityType="Self.HOUSE" />
+          <EntitySet Name="HOUSE_RENT" EntityType="Self.HOUSE_RENT" />
+          <EntitySet Name="REPORTs" EntityType="Self.REPORT" />
+          <EntitySet Name="RESIDENTs" EntityType="Self.RESIDENT" />
+          <EntitySet Name="ROLEs" EntityType="Self.ROLE" />
+          <EntitySet Name="SERVICEs" EntityType="Self.SERVICE" />
+          <EntitySet Name="STAFFs" EntityType="Self.STAFF" />
+          <EntitySet Name="VISITORs" EntityType="Self.VISITOR" />
+          <AssociationSet Name="FK_BOOKING_RESIDENT" Association="Self.FK_BOOKING_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENTs" />
+            <End Role="BOOKING" EntitySet="BOOKINGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOKING_SERVICE" Association="Self.FK_BOOKING_SERVICE">
+            <End Role="SERVICE" EntitySet="SERVICEs" />
+            <End Role="BOOKING" EntitySet="BOOKINGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOKING_STAFF" Association="Self.FK_BOOKING_STAFF">
+            <End Role="STAFF" EntitySet="STAFFs" />
+            <End Role="BOOKING" EntitySet="BOOKINGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACILITY_STAFF" Association="Self.FK_FACILITY_STAFF">
+            <End Role="STAFF" EntitySet="STAFFs" />
+            <End Role="FACILITY" EntitySet="FACILITies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOUSE_RENT_HOUSE" Association="Self.FK_HOUSE_RENT_HOUSE">
+            <End Role="HOUSE" EntitySet="Houses" />
+            <End Role="HOUSE_RENT" EntitySet="HOUSE_RENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HOUSE_RENT_RESIDENT" Association="Self.FK_HOUSE_RENT_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENTs" />
+            <End Role="HOUSE_RENT" EntitySet="HOUSE_RENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REPORT_RESIDENT" Association="Self.FK_REPORT_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENTs" />
+            <End Role="REPORT" EntitySet="REPORTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REPORT_STAFF" Association="Self.FK_REPORT_STAFF">
+            <End Role="STAFF" EntitySet="STAFFs" />
+            <End Role="REPORT" EntitySet="REPORTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITOR_RESIDENT" Association="Self.FK_VISITOR_RESIDENT">
+            <End Role="RESIDENT" EntitySet="RESIDENTs" />
+            <End Role="VISITOR" EntitySet="VISITORs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAFF_ROLE" Association="Self.FK_STAFF_ROLE">
+            <End Role="ROLE" EntitySet="ROLEs" />
+            <End Role="STAFF" EntitySet="STAFFs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VISITOR_STAFF" Association="Self.FK_VISITOR_STAFF">
+            <End Role="STAFF" EntitySet="STAFFs" />
+            <End Role="VISITOR" EntitySet="VISITORs" />
+          </AssociationSet>
+          <FunctionImport Name="PROC_InsertBooking">
+            <Parameter Name="BOOKING_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="BOOKING_TIME" Mode="In" Type="Time" />
+            <Parameter Name="BOOKING_DESC" Mode="In" Type="String" />
+            <Parameter Name="RESIDENT_IC" Mode="In" Type="String" />
+            <Parameter Name="SERVICE_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Proc_ResidentBookingList" ReturnType="Collection(eResidentModel.Proc_ResidentBookingList_Result)" >
+          <Parameter Name="RESIDENT_IC" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="View_ResidentBookingList" EntityType="eResidentModel.View_ResidentBookingList" />
+          <FunctionImport Name="PROC_InsertReport">
+            <Parameter Name="REPORT_DESC" Mode="In" Type="String" />
+            <Parameter Name="REPORT_TYPE" Mode="In" Type="String" />
+            <Parameter Name="RESIDENT_IC" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Proc_ResidentBookingList_Result">
+          <Property Type="Int32" Name="BOOKING_ID" Nullable="false" />
+          <Property Type="DateTime" Name="BOOKING_DATE" Nullable="false" />
+          <Property Type="Time" Name="BOOKING_TIME" Nullable="true" />
+          <Property Type="DateTime" Name="REQ_ON" Nullable="false" Precision="23" />
+          <Property Type="String" Name="STATUS" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="RESIDENT_IC" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="SERVICE_ID" Nullable="false" />
+          <Property Type="String" Name="SERVICE_NAME" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="View_ResidentBookingList">
+          <Key>
+            <PropertyRef Name="BOOKING_ID" />
+            <PropertyRef Name="BOOKING_DATE" />
+            <PropertyRef Name="REQ_ON" />
+            <PropertyRef Name="STATUS" />
+            <PropertyRef Name="RESIDENT_IC" />
+            <PropertyRef Name="SERVICE_ID" />
+            <PropertyRef Name="SERVICE_NAME" />
+          </Key>
+          <Property Name="BOOKING_ID" Type="Int32" Nullable="false" />
+          <Property Name="BOOKING_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BOOKING_TIME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="REQ_ON" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="STATUS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RESIDENT_IC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SERVICE_ID" Type="Int32" Nullable="false" />
+          <Property Name="SERVICE_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="eResidentModelStoreContainer" CdmEntityContainer="eResidentEntities">
+          <EntitySetMapping Name="BOOKINGs">
+            <EntityTypeMapping TypeName="eResidentModel.BOOKING">
+              <MappingFragment StoreEntitySet="BOOKING">
+                <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
+                <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
+                <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
+                <ScalarProperty Name="REQ_ON" ColumnName="REQ_ON" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="BOOKING_DESC" ColumnName="BOOKING_DESC" />
+                <ScalarProperty Name="BOOKING_FEEDBACK" ColumnName="BOOKING_FEEDBACK" />
+                <ScalarProperty Name="RESIDENT_IC" ColumnName="RESIDENT_IC" />
+                <ScalarProperty Name="SERVICE_ID" ColumnName="SERVICE_ID" />
+                <ScalarProperty Name="STAFF_ID" ColumnName="STAFF_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACILITies">
+            <EntityTypeMapping TypeName="eResidentModel.FACILITY">
+              <MappingFragment StoreEntitySet="FACILITY">
+                <ScalarProperty Name="FACILITY_ID" ColumnName="FACILITY_ID" />
+                <ScalarProperty Name="FACILITY_NAME" ColumnName="FACILITY_NAME" />
+                <ScalarProperty Name="FACILITY_DESCRIPTION" ColumnName="FACILITY_DESCRIPTION" />
+                <ScalarProperty Name="FACILITY_MEDIA" ColumnName="FACILITY_MEDIA" />
+                <ScalarProperty Name="STAFF_ID" ColumnName="STAFF_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Houses">
+            <EntityTypeMapping TypeName="eResidentModel.HOUSE">
+              <MappingFragment StoreEntitySet="HOUSE">
+                <ScalarProperty Name="HOUSE_ID" ColumnName="HOUSE_ID" />
+                <ScalarProperty Name="HOUSE_BLOCK" ColumnName="HOUSE_BLOCK" />
+                <ScalarProperty Name="HOUSE_LEVEL" ColumnName="HOUSE_LEVEL" />
+                <ScalarProperty Name="HOUSE_NUMBER" ColumnName="HOUSE_NUMBER" />
+                <ScalarProperty Name="VACANCY" ColumnName="VACANCY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOUSE_RENT">
+            <EntityTypeMapping TypeName="eResidentModel.HOUSE_RENT">
+              <MappingFragment StoreEntitySet="HOUSE_RENT">
+                <ScalarProperty Name="RENT_NO" ColumnName="RENT_NO" />
+                <ScalarProperty Name="START_RENT" ColumnName="START_RENT" />
+                <ScalarProperty Name="END_RENT" ColumnName="END_RENT" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="RESIDENT_IC" ColumnName="RESIDENT_IC" />
+                <ScalarProperty Name="HOUSE_ID" ColumnName="HOUSE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REPORTs">
+            <EntityTypeMapping TypeName="eResidentModel.REPORT">
+              <MappingFragment StoreEntitySet="REPORT">
+                <ScalarProperty Name="REPORT_ID" ColumnName="REPORT_ID" />
+                <ScalarProperty Name="REPORT_DATE" ColumnName="REPORT_DATE" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="REPORT_DESC" ColumnName="REPORT_DESC" />
+                <ScalarProperty Name="REPORT_TYPE" ColumnName="REPORT_TYPE" />
+                <ScalarProperty Name="RESIDENT_IC" ColumnName="RESIDENT_IC" />
+                <ScalarProperty Name="STAFF_ID" ColumnName="STAFF_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESIDENTs">
+            <EntityTypeMapping TypeName="eResidentModel.RESIDENT">
+              <MappingFragment StoreEntitySet="RESIDENT">
+                <ScalarProperty Name="RESIDENT_IC" ColumnName="RESIDENT_IC" />
+                <ScalarProperty Name="RESIDENT_NAME" ColumnName="RESIDENT_NAME" />
+                <ScalarProperty Name="RESIDENT_PHONE" ColumnName="RESIDENT_PHONE" />
+                <ScalarProperty Name="RESIDENT_EMAIL" ColumnName="RESIDENT_EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLEs">
+            <EntityTypeMapping TypeName="eResidentModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+                <ScalarProperty Name="ROLE_NAME" ColumnName="ROLE_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SERVICEs">
+            <EntityTypeMapping TypeName="eResidentModel.SERVICE">
+              <MappingFragment StoreEntitySet="SERVICE">
+                <ScalarProperty Name="SERVICE_ID" ColumnName="SERVICE_ID" />
+                <ScalarProperty Name="SERVICE_NAME" ColumnName="SERVICE_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STAFFs">
+            <EntityTypeMapping TypeName="eResidentModel.STAFF">
+              <MappingFragment StoreEntitySet="STAFF">
+                <ScalarProperty Name="STAFF_ID" ColumnName="STAFF_ID" />
+                <ScalarProperty Name="STAFF_IC" ColumnName="STAFF_IC" />
+                <ScalarProperty Name="STAFF_NAME" ColumnName="STAFF_NAME" />
+                <ScalarProperty Name="STAFF_PHONE" ColumnName="STAFF_PHONE" />
+                <ScalarProperty Name="STAFF_EMAIL" ColumnName="STAFF_EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISITORs">
+            <EntityTypeMapping TypeName="eResidentModel.VISITOR">
+              <MappingFragment StoreEntitySet="VISITOR">
+                <ScalarProperty Name="VISITOR_PHONE" ColumnName="VISITOR_PHONE" />
+                <ScalarProperty Name="VISITOR_ID" ColumnName="VISITOR_ID" />
+                <ScalarProperty Name="VISITOR_IC" ColumnName="VISITOR_IC" />
+                <ScalarProperty Name="VISITOR_NAME" ColumnName="VISITOR_NAME" />
+                <ScalarProperty Name="ARRIVAL_DATE" ColumnName="ARRIVAL_DATE" />
+                <ScalarProperty Name="RESIDENT_IC" ColumnName="RESIDENT_IC" />
+                <ScalarProperty Name="STAFF_ID" ColumnName="STAFF_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PROC_InsertBooking" FunctionName="eResidentModel.Store.PROC_InsertBooking" />
+          <FunctionImportMapping FunctionImportName="Proc_ResidentBookingList" FunctionName="eResidentModel.Store.Proc_ResidentBookingList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="eResidentModel.Proc_ResidentBookingList_Result">
+                <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
+                <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
+                <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
+                <ScalarProperty Name="REQ_ON" ColumnName="REQ_ON" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="RESIDENT_IC" ColumnName="RESIDENT_IC" />
+                <ScalarProperty Name="SERVICE_ID" ColumnName="SERVICE_ID" />
+                <ScalarProperty Name="SERVICE_NAME" ColumnName="SERVICE_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="View_ResidentBookingList">
+            <EntityTypeMapping TypeName="eResidentModel.View_ResidentBookingList">
+              <MappingFragment StoreEntitySet="View_ResidentBookingList">
+                <ScalarProperty Name="SERVICE_NAME" ColumnName="SERVICE_NAME" />
+                <ScalarProperty Name="SERVICE_ID" ColumnName="SERVICE_ID" />
+                <ScalarProperty Name="RESIDENT_IC" ColumnName="RESIDENT_IC" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="REQ_ON" ColumnName="REQ_ON" />
+                <ScalarProperty Name="BOOKING_TIME" ColumnName="BOOKING_TIME" />
+                <ScalarProperty Name="BOOKING_DATE" ColumnName="BOOKING_DATE" />
+                <ScalarProperty Name="BOOKING_ID" ColumnName="BOOKING_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PROC_InsertReport" FunctionName="eResidentModel.Store.PROC_InsertReport" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

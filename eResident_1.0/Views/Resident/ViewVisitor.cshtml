@@ -1,0 +1,131 @@
+﻿@model IEnumerable<eResident_1._0.Models.VISITOR>
+@{
+    ViewBag.Title = "ViewVisitor";
+    Layout = "~/Views/Shared/_LayoutResident.cshtml";
+}
+<html>
+<head>
+    <!-- Site CSS -->
+    <link href="~/Scripts/CSS/VisitorCSS.css" rel="stylesheet" />
+    <!-- Font  Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <style>
+        a.my-class {
+            color: white
+        }
+
+            a.my-class:hover {
+                color: black
+            }
+    </style>
+
+    @if (TempData["Success"] is true)
+    {
+        <script type="text/javascript">
+            $(function () {
+                alert("Successfully added.");
+            });
+        </script>
+
+        TempData["Success"] = false;
+    }
+    else if (TempData["Success"] is false)
+    {
+        if (TempData["ErrorMessage"] != null)
+        {
+            <script type="text/javascript">
+                $(function () {
+                    alert("ERROR! : " + TempData["ErrorMessage"]);
+                });
+            </script>
+        }
+    }
+
+</head>
+
+<body>
+    <div class="title">
+        Visitor List
+    </div>
+    @* Search Box *@
+
+
+
+        @using (Html.BeginForm("ViewVisitor", "Resident", FormMethod.Get, new { @style = "margin-left:400px;" }))
+        {
+            <div class="pull-left" style="margin-right:10px;">
+                DATE:
+            </div>
+            <div class="pull-left" style="margin-right:40px;">
+                <input name="datevisit" class="form-control" type="date">
+            </div>
+            <div class="pull-left">
+                IC Number:
+            </div>
+            <div class="pull-left" style="margin-right:10px;">
+                <input name="icnumber" class="form-control" placeholder="Search here..." type="text">
+            </div>
+            <div class="pull-left search-product">
+                <button type="submit"> <i class="fa fa-search"></i> </button>
+            </div>
+        }
+
+    <div class="pull-left">
+        <button style="margin-top:-5px;margin-left:160px;" type="button" class="btn" data-toggle="modal" data-target="#UploadVideo">
+            @Html.ActionLink("Add New Visitor", "AddVisitor", "Resident", new { @class = "my-class" })
+        </button>
+    </div>
+    <br /> <br />
+    @* Visitor list *@
+    @{
+        if (Model.Count() == 0)
+        {
+            <h2 class="center">no visitor</h2>
+        }
+
+        else
+        {
+            <div class="table-users" style="pad">
+
+                <table cellspacing="0">
+                    <tr>
+
+                        <th>Name</th>
+                        <th>IC Number</th>
+                        <th>Phone</th>
+                        <th>Date</th>
+                        <th></th>
+                        @*<th width="230">Comments</th>*@
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VISITOR_NAME)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VISITOR_IC)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.VISITOR_PHONE)
+                            </td>
+                            <td>
+                                @item.ARRIVAL_DATE.ToShortDateString()
+                            </td>
+                            <td>
+                                <a href="@Url.Action("DeleteVisitor", "Resident", new { id = item.VISITOR_ID})" onclick="return confirm('Confirm delete visitor?');" class="button">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        }
+    }
+
+
+</body>
+</html>

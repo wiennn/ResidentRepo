@@ -1,0 +1,87 @@
+﻿.imgfullview {
+    display: block;
+    border: groove;
+    max-width: 100%;
+    max-height: 350px;
+}
+
+td, th {
+    padding: 15px;
+    vertical-align: text-top;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.gallery {
+    border: 1px solid #ccc;
+    width: 80%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+}
+
+    div.gallery:hover {
+        border: 1px solid #777;
+        width: 80%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+    }
+
+    div.gallery img {
+        width: 50%;
+        height: auto;
+    }
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 6px;
+    float: left;
+    width: 24.99999%;
+}
+
+.responsive-left {
+    padding: 0 6px;
+    float: left;
+    max-width: 50%;
+    max-height: 50px;
+}
+
+.responsive-right {
+    padding: 0 6px;
+    float: right;
+    max-width: 50%;
+}
+
+@media only screen and (max-width: 700px) {
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .responsive {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
